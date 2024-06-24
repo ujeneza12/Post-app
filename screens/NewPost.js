@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import axios from "./axios.config";
 
 const NewPost = ({ navigation }) => {
-  const [userId, setUserId] = useState('');
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [userId, setUserId] = useState("");
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('/posts', {
+      const response = await axios.post("/posts", {
         userId: Number(userId),
         title,
         body,
       });
-      Alert.alert('New Post', 'Post created successfully', [
-        { text: 'OK', onPress: () => navigation.navigate('Comments') }
+      Alert.alert("New Post", "Post created successfully", [
+        { text: "OK", onPress: () => navigation.navigate("Comments") },
       ]);
     } catch (error) {
-      setErrorMessage('Failed to create post');
-      Alert.alert('Error creating post', error.message);
+      setErrorMessage("Failed to create post");
+      Alert.alert("Error creating post", error.message);
     }
   };
 
@@ -35,11 +35,7 @@ const NewPost = ({ navigation }) => {
         keyboardType="numeric"
       />
       <Text style={styles.label}>Title:</Text>
-      <TextInput
-        style={styles.input}
-        value={title}
-        onChangeText={setTitle}
-      />
+      <TextInput style={styles.input} value={title} onChangeText={setTitle} />
       <Text style={styles.label}>Body:</Text>
       <TextInput
         style={[styles.input, styles.bodyInput]}
@@ -56,7 +52,7 @@ const NewPost = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
   },
   label: {
@@ -65,7 +61,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 4,
     paddingVertical: 8,
     paddingHorizontal: 10,
@@ -74,10 +70,10 @@ const styles = StyleSheet.create({
   },
   bodyInput: {
     height: 100,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
   error: {
-    color: 'red',
+    color: "red",
     marginTop: 10,
   },
 });

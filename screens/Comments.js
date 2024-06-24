@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import axios from './axios.config';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import axios from "./axios.config";
 
 const Comments = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
@@ -13,10 +20,10 @@ const Comments = ({ navigation }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('/posts');
+      const response = await axios.get("/posts");
       setPosts(response.data);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      console.error("Error fetching posts:", error);
     }
   };
 
@@ -32,27 +39,35 @@ const Comments = ({ navigation }) => {
 
   const handlePostPress = (postId) => {
     fetchComments(postId);
-    navigation.navigate('CommentsScreen', { postId });
+    navigation.navigate("Screen", { postId });
   };
 
+  // This function handles the deletion of a post
   const handleDeletePost = (postId) => {
+    // This line displays an alert box with the message "Delete Post"
     Alert.alert(
       "Delete Post",
       "Are you sure you want to delete this post?",
+      // This line creates two buttons for the alert box, one with the text "Cancel" and the other with the text "OK"
       [
         { text: "Cancel", style: "cancel" },
-        { text: "OK", onPress: () => deletePost(postId) }
+        { text: "OK", onPress: () => deletePost(postId) },
       ]
     );
   };
 
+  // This function deletes a post from the server
   const deletePost = async (postId) => {
     try {
       await axios.delete(`/posts/${postId}`);
+
       fetchPosts();
+
       setSelectedPostId(null);
+
       setComments([]);
     } catch (error) {
+      // Log any errors that occur while deleting the post
       console.error(`Error deleting post ${postId}:`, error);
     }
   };
@@ -63,7 +78,10 @@ const Comments = ({ navigation }) => {
         <Text style={styles.postTitle}>{item.title}</Text>
         <Text>{item.body}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeletePost(item.id)}>
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => handleDeletePost(item.id)}
+      >
         <Text style={styles.deleteButtonText}>Delete</Text>
       </TouchableOpacity>
     </View>
@@ -95,9 +113,13 @@ const Comments = ({ navigation }) => {
       {selectedPostId && (
         <View style={styles.commentsContainer}>
           <Text style={styles.heading}>Comments for Post {selectedPostId}</Text>
-          {comments.length > 0 ? renderComments() : (
+          {comments.length > 0 ? (
+            renderComments()
+          ) : (
             <View style={styles.noCommentsContainer}>
-              <Text style={styles.noCommentsText}>No comments on this post</Text>
+              <Text style={styles.noCommentsText}>
+                No comments on this post
+              </Text>
             </View>
           )}
         </View>
@@ -110,13 +132,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
-    color: '#333',
+    color: "#333",
   },
   postsContainer: {
     flex: 1,
@@ -125,11 +147,11 @@ const styles = StyleSheet.create({
   postItem: {
     padding: 15,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     marginBottom: 10,
     borderRadius: 10,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
+    backgroundColor: "#fff",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -137,21 +159,21 @@ const styles = StyleSheet.create({
   },
   postTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
-    color: '#333',
+    color: "#333",
   },
   deleteButton: {
     marginTop: 10,
     paddingVertical: 5,
     paddingHorizontal: 15,
-    backgroundColor: '#ff4d4d',
+    backgroundColor: "#ff4d4d",
     borderRadius: 5,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   deleteButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
   },
   commentsContainer: {
     flex: 1,
@@ -159,25 +181,25 @@ const styles = StyleSheet.create({
   commentItem: {
     padding: 15,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     marginBottom: 10,
     borderRadius: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   commentName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
-    color: '#333',
+    color: "#333",
   },
   noCommentsContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   noCommentsText: {
     fontSize: 20,
-    color: '#666',
+    color: "#666",
   },
 });
 

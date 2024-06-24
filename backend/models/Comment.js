@@ -1,37 +1,40 @@
 // models/Comment.js
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 const db = require("../db");
 
-
-const Comment = db.define('Comment', {
+const Comment = db.define(
+  "Comment",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     postId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'posts',
-            key: 'id'
-        }
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "posts",
+        key: "id",
+      },
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     body: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    }
-}, {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+  },
+  {
     timestamps: false,
-    tableName: 'comments'
-});
+    tableName: "comments",
+  }
+);
 
 module.exports = Comment;

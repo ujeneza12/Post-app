@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, Button, StyleSheet } from "react-native";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -8,13 +8,13 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <Button
           title="Create New Post"
-          onPress={() => navigation.navigate('Post')}
+          onPress={() => navigation.navigate("Post")}
         />
       </View>
       <View style={styles.buttonContainer}>
         <Button
           title="View Posts"
-          onPress={() => navigation.navigate('Comments')}
+          onPress={() => navigation.navigate("Comments")}
         />
       </View>
     </View>
@@ -24,8 +24,8 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   title: {
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginVertical: 10,
-    width: '80%',
+    width: "80%",
   },
 });
 
